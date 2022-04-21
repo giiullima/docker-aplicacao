@@ -1,21 +1,14 @@
-FROM nginx:1.21-alpine
-
-RUN rm /etc/nginx/conf.d/default.conf
-COPY nginx.conf /etc/nginx/conf.d
+FROM nginx:latest 
+COPY ./config/nginx.conf /etc/nginx/nginx.conf
+#EXPOSE 80 443
+ENTRYPOINT ["nginx"]
+CMD ["-g", "daemon off;"]
 
 # imagem do python q será usada
 FROM python:3.8
 
 #o diretorio de onde o app estará na imagem
 WORKDIR /usr/src/app_django_docker
-
-# set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
-
-# install psycopg2 dependencies
-RUN apk update \
-    && apk add postgresql-dev gcc python3-dev musl-dev
 
 # instala o pip
 RUN pip install --upgrade pip
