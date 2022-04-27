@@ -1,0 +1,27 @@
+version: "3"
+services:
+  nginx:
+    build: ./nginx
+    ports:
+      - 1337:80
+    depends_on:
+      - app2
+
+  app2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: python manage.py runserver 0.0.0.0:8000
+    container_name: container-app2
+    expose:
+      - 8000
+    depends_on:
+      - db
+  db:
+    image: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    restart: always
+
+volumes:
+  postgres_data:
