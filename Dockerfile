@@ -20,4 +20,5 @@ COPY . /usr/src/app_django_docker/
 EXPOSE 8000
 
 # roda o comando na imagem para iniciar a aplicação
-CMD [ "python", "manage.py", "runserver", "0.0.0.0:8000" ]
+# CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["gunicorn", "-b :8000", "fcsolutions.wsgi:application"]

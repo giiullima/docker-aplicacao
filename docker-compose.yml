@@ -1,4 +1,8 @@
 version: "3"
+
+volumes:
+  postgres_data:
+
 services:
   nginx:
     build: ./nginx
@@ -29,6 +33,3 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     restart: always
-
-volumes:
-  postgres_data:
