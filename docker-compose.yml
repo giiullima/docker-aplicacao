@@ -2,6 +2,7 @@ version: "3"
 
 volumes:
   postgres_data:
+  static:
 
 services:
   nginx:
@@ -16,9 +17,11 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - 8001:8000
+      - 8000:8000
     volumes:
-      - .:/app
+      - static:/static
+    env_file:
+      - .env
     depends_on:
       - db
     restart: always
